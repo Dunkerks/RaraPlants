@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Інтерактивний каталог рідкісних рослин Сумської області</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Каталог рідкісних рослин Сумської області</h1>
+    <nav>
+      <button data-category="all">Усі рослини</button>
+      <button data-category="griby">Гриби</button>
+      <button data-category="lishayniki">Мох та Лишайники</button>
+      <button data-category="kvitky">Судинні рослини</button>
+  </nav>
+  </header>
+
+  <main id="catalog">
+    <!-- Товари будуть додані скриптом -->
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close">&times;</span>
+      <h2 id="modal-title"></h2>
+      <img id="modal-image" src="" alt="" />
+      <p id="modal-description"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
