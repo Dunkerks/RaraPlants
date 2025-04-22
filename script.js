@@ -261,7 +261,6 @@ function renderPlants(category = "all") {
     catalog.appendChild(card);
   });
 }
-
 function showModal(plant) {
   modalTitle.textContent = plant.title;
   modalImage.src = plant.image;
@@ -269,7 +268,6 @@ function showModal(plant) {
   modalDescription.textContent = plant.description;
   modal.classList.remove("hidden");
 }
-
 closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
 window.addEventListener("click", e => {
   if (e.target === modal) modal.classList.add("hidden");
@@ -280,5 +278,45 @@ document.querySelectorAll("nav button").forEach(btn => {
     renderPlants(btn.dataset.category);
   });
 });
+const description = document.getElementById("modal-description");
+let textScale = 1;
+
+description.addEventListener("wheel", (e) => {
+  if (!e.ctrlKey) return; // Додатково: масштаб тільки при Ctrl
+  e.preventDefault();
+
+  const delta = e.deltaY > 0 ? -0.05 : 0.05;
+  textScale += delta;
+  textScale = Math.min(Math.max(0.5, textScale), 3); // межі масштабу
+
+  description.style.transform = `scale(${textScale})`;
+});
+const modalContent = document.getElementById("modal-content");
+const dragHandle = document.querySelector(".drag-handle");
+
+let isDragging = false;
+let offsetX, offsetY;
+
+dragHandle.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  offsetX = e.clientX - modalContent.offsetLeft;
+  offsetY = e.clientY - modalContent.offsetTop;
+  modalContent.style.position = "absolute";
+  modalContent.style.zIndex = "9999";
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    modalContent.style.left = `${e.clientX - offsetX}px`;
+    modalContent.style.top = `${e.clientY - offsetY}px`;
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+
+
+
 
 renderPlants();
